@@ -1,24 +1,38 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index.tsx";
-import NotFound from "./pages/NotFound.tsx";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import Index from "./pages/Index";
+import PropertiesPage from "./pages/PropertiesPage";
+import PropertyDetail from "./pages/PropertyDetail";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Navbar />
+        <main className="min-h-screen">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/venda" element={<PropertiesPage listing="venda" />} />
+            <Route path="/aluguel" element={<PropertiesPage listing="aluguel" />} />
+            <Route path="/imovel/:id" element={<PropertyDetail />} />
+            <Route path="/sobre" element={<About />} />
+            <Route path="/contato" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+        <WhatsAppButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
