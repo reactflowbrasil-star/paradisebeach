@@ -1,16 +1,35 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { motion } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import { toast } from "sonner";
 
-export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+const contactSchema = z.object({
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres").max(100, "Nome muito longo"),
+  email: z.string().email("E-mail inválido"),
+  phone: z.string().min(10, "Telefone deve ter pelo menos 10 dígitos").regex(/^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Formato: (00) 00000-0000"),
+  message: z.string().min(10, "Mensagem deve ter pelo menos 10 caracteres").max(1000, "Mensagem muito longa"),
+});
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+type ContactForm = z.infer<typeof contactSchema>;
+
+export default function Contact() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<ContactForm>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (data: ContactForm) => {
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
     toast.success("Mensagem enviada com sucesso! Retornaremos em breve.");
-    setForm({ name: "", email: "", phone: "", message: "" });
+    reset();
   };
 
   return (
@@ -21,55 +40,54 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Form */}
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <form onSubmit={handleSubmit} className="bg-card p-8 rounded-lg shadow-luxury space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="bg-card p-8 rounded-lg shadow-luxury space-y-5">
               <div>
                 <label className="text-sm font-medium text-foreground mb-1 block">Nome completo</label>
                 <input
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  {...register("name")}
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 text-foreground"
                   placeholder="Seu nome"
                 />
+                {errors.name && <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>}
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1 block">E-mail</label>
                   <input
-                    required
+                    {...register("email")}
                     type="email"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
                     className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 text-foreground"
                     placeholder="seu@email.com"
                   />
+                  {errors.email && <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>}
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1 block">Telefone</label>
                   <input
-                    value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    {...register("phone")}
                     className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 text-foreground"
                     placeholder="(00) 00000-0000"
                   />
+                  {errors.phone && <p className="text-sm text-red-500 mt-1">{errors.phone.message}</p>}
                 </div>
               </div>
               <div>
                 <label className="text-sm font-medium text-foreground mb-1 block">Mensagem</label>
                 <textarea
-                  required
+                  {...register("message")}
                   rows={5}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 text-foreground resize-none"
                   placeholder="Como podemos ajudá-lo?"
                 />
+                {errors.message && <p className="text-sm text-red-500 mt-1">{errors.message.message}</p>}
               </div>
               <button
                 type="submit"
-                className="button-pop w-full bg-gradient-gold text-gold-foreground py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:shadow-gold transition-all" data-magnetic
+                disabled={isSubmitting}
+                className="button-pop w-full bg-gradient-gold text-gold-foreground py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:shadow-gold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                data-magnetic
               >
-                <Send size={16} /> Enviar Mensagem
+                <Send size={16} /> {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
               </button>
             </form>
           </motion.div>

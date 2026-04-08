@@ -1,10 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import PropertiesPage from "./pages/PropertiesPage";
 import PropertyDetail from "./pages/PropertyDetail";
@@ -21,7 +23,7 @@ function AppShell() {
   useWebflowEffects();
 
   return (
-    <>
+    <ErrorBoundary>
       <IntroSlides />
       <Navbar />
       <main className="min-h-screen">
@@ -38,18 +40,20 @@ function AppShell() {
       </main>
       <Footer />
       <WhatsAppButton />
-    </>
+    </ErrorBoundary>
   );
 }
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Sonner />
-      <BrowserRouter>
-        <AppShell />
-      </BrowserRouter>
-    </TooltipProvider>
+    <HelmetProvider>
+      <TooltipProvider>
+        <Sonner />
+        <BrowserRouter>
+          <AppShell />
+        </BrowserRouter>
+      </TooltipProvider>
+    </HelmetProvider>
   </QueryClientProvider>
 );
 

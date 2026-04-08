@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, MapPin, TrendingUp, Gem, Star, ArrowRight } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
+import { Helmet } from "react-helmet-async";
 import heroImg from "@/assets/hero-beach.jpg";
 import sunsetImg from "@/assets/beach-sunset.jpg";
 import prop1 from "@/assets/property-1.jpg";
@@ -47,6 +48,17 @@ export default function Index() {
 
   return (
     <>
+      <Helmet>
+        <title>Paradise Beach - Imóveis de Luxo à Beira-Mar | Venda e Aluguel</title>
+        <meta name="description" content="Encontre imóveis de luxo à beira-mar no Paradise Beach. Villas, casas e apartamentos premium para venda e aluguel nas melhores praias do Brasil." />
+        <meta name="keywords" content="imóveis beira-mar, villas luxo, casas praia, aluguel temporada, venda imóveis litoral" />
+        <meta property="og:title" content="Paradise Beach - Imóveis de Luxo à Beira-Mar" />
+        <meta property="og:description" content="Viva o paraíso: imóveis premium à beira-mar para venda e aluguel." />
+        <meta property="og:image" content={heroImg} />
+        <meta property="og:url" content="https://paradisebeach.com" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://paradisebeach.com" />
+      </Helmet>
       {/* Hero – full-screen with sliding backgrounds */}
       <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
         {/* Background slides */}

@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { properties, formatPrice } from "@/data/properties";
 import { Bed, Bath, Maximize, MapPin, ArrowLeft, Phone, Heart, Share2, Check } from "lucide-react";
 import { motion } from "framer-motion";
+import LazyImage from "@/components/LazyImage";
+import PropertyMap from "@/components/PropertyMap";
 
 export default function PropertyDetail() {
   const { id } = useParams();
@@ -28,12 +30,11 @@ export default function PropertyDetail() {
           <div className="lg:col-span-2">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
               <div className="rounded-lg overflow-hidden mb-6 aspect-[16/10]">
-                <img
+                <LazyImage
                   src={property.images[0]}
                   alt={property.title}
-                  className="w-full h-full object-cover"
                   width={800}
-                  height={600}
+                  height={500}
                 />
               </div>
             </motion.div>
@@ -67,14 +68,9 @@ export default function PropertyDetail() {
                 ))}
               </div>
 
-              {/* Map placeholder */}
+              {/* Map with Mapbox / geolocation */}
               <h2 className="font-serif text-xl font-semibold text-foreground mb-4">Localização</h2>
-              <div className="rounded-lg overflow-hidden bg-muted h-64 flex items-center justify-center">
-                <span className="text-muted-foreground text-sm">
-                  <MapPin className="inline mr-1" size={16} />
-                  {property.location}, {property.city} — {property.state}
-                </span>
-              </div>
+              <PropertyMap property={property} />
             </motion.div>
           </div>
 
