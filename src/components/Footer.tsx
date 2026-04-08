@@ -15,7 +15,7 @@ export default function Footer() {
               </h3>
             </div>
             <p className="text-primary-foreground/70 text-sm leading-relaxed">
-              Seu paraíso à beira-mar. Especialistas em imóveis de luxo no litoral brasileiro desde 2010.
+              Seu paraíso à beira-mar. Especialistas em reservas e imóveis de luxo no litoral brasileiro.
             </p>
           </div>
 
