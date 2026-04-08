@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImg from "@/assets/logo-paradise.png";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -18,8 +19,9 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${isHome ? "bg-foreground/20 backdrop-blur-md" : "bg-card/95 backdrop-blur-md shadow-card"}`}>
-      <div className="mobile-shell mx-auto flex items-center justify-between py-3 md:py-4">
-        <Link to="/" className="flex items-center gap-2">
+      <div className="mobile-shell mx-auto flex items-center justify-between py-2 md:py-3">
+        <Link to="/" className="flex items-center gap-2.5">
+          <img src={logoImg} alt="Paradise Beach" className="h-10 w-10 rounded-full object-cover bg-white/90 p-0.5 sm:h-11 sm:w-11" />
           <span className={`font-serif text-xl font-bold tracking-tight sm:text-2xl ${isHome ? "text-primary-foreground" : "text-primary"}`}>
             Paradise<span className="text-gradient-gold">Beach</span>
           </span>

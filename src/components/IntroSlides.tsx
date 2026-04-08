@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Hand, Sparkles, MapPinned } from "lucide-react";
+import logoImg from "@/assets/logo-paradise.png";
 
 const storageKey = "paradise_intro_seen_v1";
 
@@ -93,33 +94,108 @@ export default function IntroSlides() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[70] bg-foreground text-primary-foreground"
+          className="fixed inset-0 z-[70] bg-foreground text-primary-foreground overflow-hidden"
         >
-          <div className="absolute inset-0 mesh-overlay opacity-60" />
+          {/* Animated background particles */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 mesh-overlay opacity-40" />
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full bg-gold/10"
+                style={{
+                  width: 100 + i * 60,
+                  height: 100 + i * 60,
+                  left: `${15 + i * 18}%`,
+                  top: `${10 + i * 15}%`,
+                }}
+                animate={{
+                  y: [0, -20, 0],
+                  opacity: [0.15, 0.3, 0.15],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 4 + i,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.5,
+                }}
+              />
+            ))}
+          </div>
 
           <div className="relative mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center px-6 py-10 text-center">
-            <img
-              src="https://growmoneydigital.com.br/paradise/01.png"
-              alt="Logomarca Paradise Beach"
-              className="mb-8 h-24 w-24 rounded-full border border-white/30 object-cover shadow-luxury sm:h-28 sm:w-28"
-            />
+            {/* Logo with entrance animation */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-6 relative"
+            >
+              <motion.div
+                animate={{ boxShadow: ["0 0 30px hsla(38,70%,55%,0.0)", "0 0 60px hsla(38,70%,55%,0.3)", "0 0 30px hsla(38,70%,55%,0.0)"] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="rounded-full"
+              >
+                <img
+                  src={logoImg}
+                  alt="Logomarca Paradise Beach"
+                  className="h-32 w-32 rounded-full border-2 border-gold/30 object-cover shadow-luxury sm:h-40 sm:w-40 bg-white/95 p-2"
+                />
+              </motion.div>
 
+              {/* Rotating ring around logo */}
+              <motion.div
+                className="absolute inset-[-8px] rounded-full border border-gold/20"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.div
+                className="absolute inset-[-16px] rounded-full border border-dashed border-gold/10"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              />
+            </motion.div>
+
+            {/* Brand name */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="mb-8 text-xs font-semibold uppercase tracking-[0.35em] text-gold"
+            >
+              Imóveis de Alto Padrão
+            </motion.p>
+
+            {/* Progress bar */}
             <div className="mb-8 h-1.5 w-full max-w-sm overflow-hidden rounded-full bg-white/15">
-              <div className="h-full rounded-full bg-gradient-gold transition-all duration-500" style={{ width: `${progress}%` }} />
+              <motion.div
+                className="h-full rounded-full bg-gradient-gold"
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.5 }}
+              />
             </div>
 
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -25 }}
+                initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -25, scale: 0.97 }}
                 transition={{ duration: 0.45 }}
                 className="glass-card w-full max-w-2xl rounded-3xl p-8 sm:p-10"
               >
                 {(() => {
                   const SlideIcon = slides[index].icon;
-                  return <SlideIcon size={30} className="mx-auto mb-4 text-gold" />;
+                  return (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                    >
+                      <SlideIcon size={30} className="mx-auto mb-4 text-gold" />
+                    </motion.div>
+                  );
                 })()}
                 <h2 className="mb-4 text-3xl font-semibold sm:text-4xl">{slides[index].title}</h2>
                 <p className="mx-auto mb-6 max-w-xl text-base text-primary-foreground/80 sm:text-lg">{slides[index].text}</p>
@@ -138,12 +214,17 @@ export default function IntroSlides() {
               ))}
             </div>
 
-            <button
+            <motion.button
               onClick={closeIntro}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="button-pop mt-10 inline-flex items-center gap-2 rounded-full bg-gradient-gold px-8 py-3 font-semibold text-gold-foreground"
             >
               Entrar no site <ChevronDown size={16} />
-            </button>
+            </motion.button>
           </div>
         </motion.div>
       )}

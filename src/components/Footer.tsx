@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
+import logoImg from "@/assets/logo-paradise.png";
 
 export default function Footer() {
   return (
@@ -7,9 +8,12 @@ export default function Footer() {
       <div className="mobile-shell mx-auto py-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
           <div>
-            <h3 className="font-serif text-2xl font-bold mb-4">
-              Paradise<span className="text-gradient-gold">Beach</span>
-            </h3>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={logoImg} alt="Paradise Beach" className="h-12 w-12 rounded-full object-cover bg-white/90 p-0.5" />
+              <h3 className="font-serif text-2xl font-bold">
+                Paradise<span className="text-gradient-gold">Beach</span>
+              </h3>
+            </div>
             <p className="text-primary-foreground/70 text-sm leading-relaxed">
               Seu paraíso à beira-mar. Especialistas em imóveis de luxo no litoral brasileiro desde 2010.
             </p>
