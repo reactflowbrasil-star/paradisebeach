@@ -82,22 +82,22 @@ export default function Contact() {
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center shrink-0"><Phone size={20} className="text-primary" /></div>
                   <div>
-                    <p className="font-medium text-foreground">Telefone & WhatsApp</p>
-                    <p className="text-muted-foreground">+55 (73) 99999-0000</p>
+                    <p className="font-medium text-foreground">Telefone</p>
+                    <p className="text-muted-foreground">(81) 9229-2821</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center shrink-0"><Mail size={20} className="text-primary" /></div>
                   <div>
                     <p className="font-medium text-foreground">E-mail</p>
-                    <p className="text-muted-foreground">contato@paradisebeach.com.br</p>
+                    <p className="text-muted-foreground">reservaparadisebeach@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center shrink-0"><MapPin size={20} className="text-primary" /></div>
                   <div>
                     <p className="font-medium text-foreground">Endereço</p>
-                    <p className="text-muted-foreground">Quadrado de Trancoso, s/n<br />Trancoso, Porto Seguro — BA</p>
+                    <p className="text-muted-foreground">Av. Fernando Luiz Henrique<br />João Pessoa, PB — CEP 58037-051</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
