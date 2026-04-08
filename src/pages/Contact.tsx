@@ -87,6 +87,13 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center shrink-0"><Phone size={20} className="text-primary" /></div>
+                  <div>
+                    <p className="font-medium text-foreground">WhatsApp</p>
+                    <p className="text-muted-foreground">+55 81 9652-0169</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center shrink-0"><Mail size={20} className="text-primary" /></div>
                   <div>
                     <p className="font-medium text-foreground">E-mail</p>
