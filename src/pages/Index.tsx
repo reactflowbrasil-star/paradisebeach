@@ -1,11 +1,23 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Shield, MapPin, TrendingUp, Gem, Star, ArrowRight } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
 import heroImg from "@/assets/hero-beach.jpg";
 import sunsetImg from "@/assets/beach-sunset.jpg";
+import prop1 from "@/assets/property-1.jpg";
+import prop2 from "@/assets/property-2.jpg";
+import prop3 from "@/assets/property-3.jpg";
 import { properties } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import SectionTitle from "@/components/SectionTitle";
+
+const heroSlides = [
+  { src: heroImg, alt: "Villa de luxo à beira-mar com piscina infinita ao pôr do sol" },
+  { src: sunsetImg, alt: "Pôr do sol deslumbrante na praia paradisíaca" },
+  { src: prop1, alt: "Propriedade de luxo com vista para o mar" },
+  { src: prop2, alt: "Casa premium à beira-mar" },
+  { src: prop3, alt: "Imóvel exclusivo no litoral" },
+];
 
 const benefits = [
   { icon: Gem, title: "Exclusividade", desc: "Imóveis selecionados e curados para os mais exigentes." },
@@ -22,19 +34,54 @@ const testimonials = [
 
 export default function Index() {
   const featured = properties.filter((p) => p.featured).slice(0, 6);
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  const nextSlide = useCallback(() => {
+    setSlideIndex((prev) => (prev + 1) % heroSlides.length);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 5000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
 
   return (
     <>
-      <section className="mesh-overlay relative flex min-h-screen items-center justify-center overflow-hidden">
-        <img
-          src={heroImg}
-          alt="Villa de luxo à beira-mar com piscina infinita ao pôr do sol"
-          className="absolute inset-0 h-full w-full object-cover"
-          width={1920}
-          height={1080}
-          data-parallax
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-foreground/55 via-foreground/25 to-foreground/70" />
+      {/* Hero – full-screen with sliding backgrounds */}
+      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
+        {/* Background slides */}
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={slideIndex}
+            src={heroSlides[slideIndex].src}
+            alt={heroSlides[slideIndex].alt}
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            className="absolute inset-0 h-full w-full object-cover"
+            width={1920}
+            height={1080}
+          />
+        </AnimatePresence>
+
+        {/* Gradient overlays for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/30 to-foreground/75" />
+        <div className="absolute inset-0 mesh-overlay opacity-30" />
+
+        {/* Slide indicators */}
+        <div className="absolute bottom-28 left-1/2 z-20 flex -translate-x-1/2 gap-2.5">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setSlideIndex(i)}
+              className={`h-2 rounded-full transition-all duration-500 ${i === slideIndex ? "w-8 bg-gold" : "w-2 bg-white/40"}`}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Content */}
         <div className="mobile-shell relative z-10 mx-auto text-center" data-reveal>
           <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
             <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.3em] text-gold sm:text-sm">Imobiliária de Luxo</span>
@@ -57,6 +104,7 @@ export default function Index() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
+      {/* Benefits */}
       <section className="bg-background py-16 sm:py-20 md:py-24">
         <div className="mobile-shell mx-auto">
           <div data-reveal>
@@ -76,6 +124,7 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Featured */}
       <section className="bg-sand py-16 sm:py-20 md:py-24">
         <div className="mobile-shell mx-auto">
           <div data-reveal>
@@ -94,6 +143,7 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Testimonials */}
       <section className="bg-background py-16 sm:py-20 md:py-24">
         <div className="mobile-shell mx-auto">
           <div data-reveal>
@@ -118,6 +168,7 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Newsletter */}
       <section className="relative overflow-hidden py-16 sm:py-20 md:py-24">
         <img src={sunsetImg} alt="Pôr do sol na praia" className="absolute inset-0 h-full w-full object-cover" loading="lazy" width={1920} height={800} data-parallax />
         <div className="absolute inset-0 bg-foreground/70" />
@@ -137,6 +188,7 @@ export default function Index() {
         </div>
       </section>
 
+      {/* CTA */}
       <section className="bg-background py-16 sm:py-20 md:py-24">
         <div className="mobile-shell mx-auto text-center" data-reveal>
           <h2 className="mb-6 text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
