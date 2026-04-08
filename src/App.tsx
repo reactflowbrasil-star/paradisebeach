@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import { useWebflowEffects } from "@/hooks/use-webflow-effects";
+import IntroSlides from "@/components/IntroSlides";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ function AppShell() {
 
   return (
     <>
+      <IntroSlides />
       <Navbar />
       <main className="min-h-screen">
         <Routes>
