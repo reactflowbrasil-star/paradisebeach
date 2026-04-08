@@ -10,6 +10,7 @@ const navLinks = [
   { to: "/aluguel", label: "Aluguel" },
   { to: "/sobre", label: "Sobre Nós" },
   { to: "/contato", label: "Contato" },
+  { to: "/admin", label: "Admin" },
 ];
 
 export default function Navbar() {
