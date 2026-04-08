@@ -17,8 +17,8 @@ export default function PropertyDetail() {
   }
 
   return (
-    <div className="pt-24 pb-16">
-      <div className="container mx-auto px-4">
+    <div className="pb-16 pt-24 sm:pt-28">
+      <div className="mobile-shell mx-auto">
         <Link to={property.listing === "venda" ? "/venda" : "/aluguel"} className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-6 transition-colors">
           <ArrowLeft size={16} /> Voltar
         </Link>
@@ -101,7 +101,7 @@ export default function PropertyDetail() {
                   href={`https://wa.me/5573999990000?text=Olá! Tenho interesse no imóvel: ${property.title}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-gradient-gold text-gold-foreground py-4 rounded-full font-semibold text-center block mb-3 hover:shadow-gold transition-all"
+                  className="button-pop w-full bg-gradient-gold text-gold-foreground py-4 rounded-full font-semibold text-center block mb-3 hover:shadow-gold transition-all" data-magnetic
                 >
                   <Phone size={16} className="inline mr-2" /> Entrar em Contato
                 </a>

@@ -25,36 +25,30 @@ export default function Index() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="mesh-overlay relative flex min-h-screen items-center justify-center overflow-hidden">
         <img
           src={heroImg}
           alt="Villa de luxo à beira-mar com piscina infinita ao pôr do sol"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
           width={1920}
           height={1080}
+          data-parallax
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-foreground/50 via-foreground/30 to-foreground/60" />
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-            <span className="text-gold text-sm font-semibold uppercase tracking-[0.3em] mb-4 block">Imobiliária de Luxo</span>
-            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
+        <div className="absolute inset-0 bg-gradient-to-b from-foreground/55 via-foreground/25 to-foreground/70" />
+        <div className="mobile-shell relative z-10 mx-auto text-center" data-reveal>
+          <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
+            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.3em] text-gold sm:text-sm">Imobiliária de Luxo</span>
+            <h1 className="mb-5 text-4xl font-bold leading-tight text-primary-foreground sm:text-5xl md:text-6xl lg:text-7xl">
               Seu Paraíso<br />à Beira-Mar
             </h1>
-            <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
+            <p className="mx-auto mb-8 max-w-2xl text-base font-light text-primary-foreground/80 sm:text-lg md:text-xl">
               Descubra propriedades exclusivas nas praias mais deslumbrantes do Brasil. Viva o estilo de vida que você sempre sonhou.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/venda"
-                className="bg-gradient-gold text-gold-foreground px-8 py-4 rounded-full font-semibold text-lg hover:shadow-gold hover:scale-105 transition-all"
-              >
+            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+              <Link to="/venda" data-magnetic className="button-pop rounded-full bg-gradient-gold px-7 py-3.5 text-base font-semibold text-gold-foreground hover:shadow-gold sm:px-8 sm:text-lg">
                 Ver Imóveis à Venda
               </Link>
-              <Link
-                to="/aluguel"
-                className="border-2 border-primary-foreground/40 text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary-foreground/10 transition-all"
-              >
+              <Link to="/aluguel" className="button-pop rounded-full border-2 border-primary-foreground/40 px-7 py-3.5 text-base font-semibold text-primary-foreground hover:bg-primary-foreground/10 sm:px-8 sm:text-lg">
                 Imóveis para Alugar
               </Link>
             </div>
@@ -63,121 +57,97 @@ export default function Index() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
-      {/* Benefits */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <SectionTitle label="Excelência" title="Por que Paradise Beach?" subtitle="Mais de uma década de expertise em imóveis de alto padrão no litoral brasileiro." />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((b, i) => (
-              <motion.div
-                key={b.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="bg-card p-8 rounded-lg shadow-card text-center hover:shadow-luxury transition-all hover:-translate-y-1"
-              >
-                <div className="w-14 h-14 bg-accent rounded-full flex items-center justify-center mx-auto mb-5">
+      <section className="bg-background py-16 sm:py-20 md:py-24">
+        <div className="mobile-shell mx-auto">
+          <div data-reveal>
+            <SectionTitle label="Excelência" title="Por que Paradise Beach?" subtitle="Mais de uma década de expertise em imóveis de alto padrão no litoral brasileiro." />
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 lg:gap-8">
+            {benefits.map((b) => (
+              <div key={b.title} data-reveal className="glass-card rounded-2xl p-6 text-center shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-luxury sm:p-8">
+                <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-accent">
                   <b.icon size={24} className="text-primary" />
                 </div>
-                <h3 className="font-serif text-xl font-semibold mb-3 text-foreground">{b.title}</h3>
-                <p className="text-muted-foreground text-sm">{b.desc}</p>
-              </motion.div>
+                <h3 className="mb-3 text-xl font-semibold text-foreground">{b.title}</h3>
+                <p className="text-sm text-muted-foreground">{b.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Properties */}
-      <section className="py-24 bg-sand">
-        <div className="container mx-auto px-4">
-          <SectionTitle label="Portfólio" title="Imóveis em Destaque" subtitle="Propriedades excepcionais selecionadas para você." />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="bg-sand py-16 sm:py-20 md:py-24">
+        <div className="mobile-shell mx-auto">
+          <div data-reveal>
+            <SectionTitle label="Portfólio" title="Imóveis em Destaque" subtitle="Propriedades excepcionais selecionadas para você." />
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 sm:gap-8">
             {featured.map((p, i) => (
               <PropertyCard key={p.id} property={p} index={i} />
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Link
-              to="/venda"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold hover:shadow-luxury hover:scale-105 transition-all"
-            >
+          <div className="mt-10 text-center" data-reveal>
+            <Link to="/venda" className="button-pop inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-semibold text-primary-foreground hover:shadow-luxury">
               Ver Todos os Imóveis <ArrowRight size={18} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <SectionTitle label="Depoimentos" title="O Que Nossos Clientes Dizem" subtitle="A satisfação dos nossos clientes é o nosso maior patrimônio." />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="bg-card p-8 rounded-lg shadow-card"
-              >
-                <div className="flex gap-1 mb-4">
+      <section className="bg-background py-16 sm:py-20 md:py-24">
+        <div className="mobile-shell mx-auto">
+          <div data-reveal>
+            <SectionTitle label="Depoimentos" title="O Que Nossos Clientes Dizem" subtitle="A satisfação dos nossos clientes é o nosso maior patrimônio." />
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 sm:gap-8">
+            {testimonials.map((t) => (
+              <div key={t.name} data-reveal className="rounded-2xl bg-card p-6 shadow-card sm:p-8">
+                <div className="mb-4 flex gap-1">
                   {Array.from({ length: t.rating }).map((_, j) => (
                     <Star key={j} size={16} className="fill-gold text-gold" />
                   ))}
                 </div>
-                <p className="text-foreground mb-6 italic leading-relaxed">"{t.text}"</p>
+                <p className="mb-6 leading-relaxed text-foreground italic">"{t.text}"</p>
                 <div>
                   <p className="font-semibold text-foreground">{t.name}</p>
                   <p className="text-sm text-muted-foreground">{t.role}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="relative py-24 overflow-hidden">
-        <img src={sunsetImg} alt="Pôr do sol na praia" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={800} />
+      <section className="relative overflow-hidden py-16 sm:py-20 md:py-24">
+        <img src={sunsetImg} alt="Pôr do sol na praia" className="absolute inset-0 h-full w-full object-cover" loading="lazy" width={1920} height={800} data-parallax />
         <div className="absolute inset-0 bg-foreground/70" />
-        <div className="relative z-10 container mx-auto px-4 text-center">
+        <div className="mobile-shell relative z-10 mx-auto text-center" data-reveal>
           <SectionTitle label="Newsletter" title="Receba Novidades Exclusivas" subtitle="Cadastre-se e seja o primeiro a conhecer nossos lançamentos e oportunidades únicas." light />
-          <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
+          <form className="mx-auto flex w-full max-w-md flex-col gap-3 sm:max-w-xl sm:flex-row" onSubmit={(e) => e.preventDefault()}>
             <input
               type="email"
               placeholder="Seu melhor e-mail"
-              className="flex-1 px-6 py-4 rounded-full bg-card/10 backdrop-blur-sm border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:border-gold"
+              className="flex-1 rounded-full border border-primary-foreground/20 bg-card/10 px-6 py-4 text-primary-foreground backdrop-blur-sm placeholder:text-primary-foreground/50 focus:border-gold focus:outline-none"
               aria-label="Email para newsletter"
             />
-            <button
-              type="submit"
-              className="bg-gradient-gold text-gold-foreground px-8 py-4 rounded-full font-semibold hover:shadow-gold transition-all"
-            >
+            <button type="submit" className="button-pop rounded-full bg-gradient-gold px-8 py-4 font-semibold text-gold-foreground hover:shadow-gold">
               Inscrever-se
             </button>
           </form>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-6">
-              Pronto para Encontrar<br />seu Paraíso?
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10">
-              Nossa equipe de especialistas está pronta para ajudá-lo a encontrar a propriedade dos seus sonhos.
-            </p>
-            <Link
-              to="/contato"
-              className="inline-flex items-center gap-2 bg-gradient-gold text-gold-foreground px-10 py-4 rounded-full font-semibold text-lg hover:shadow-gold hover:scale-105 transition-all"
-            >
-              Entre em Contato <ArrowRight size={20} />
-            </Link>
-          </motion.div>
+      <section className="bg-background py-16 sm:py-20 md:py-24">
+        <div className="mobile-shell mx-auto text-center" data-reveal>
+          <h2 className="mb-6 text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
+            Pronto para Encontrar<br />seu Paraíso?
+          </h2>
+          <p className="mx-auto mb-10 max-w-xl text-base text-muted-foreground sm:text-lg">
+            Nossa equipe de especialistas está pronta para ajudá-lo a encontrar a propriedade dos seus sonhos.
+          </p>
+          <Link to="/contato" data-magnetic className="button-pop inline-flex items-center gap-2 rounded-full bg-gradient-gold px-10 py-4 text-lg font-semibold text-gold-foreground hover:shadow-gold">
+            Entre em Contato <ArrowRight size={20} />
+          </Link>
         </div>
       </section>
     </>

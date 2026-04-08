@@ -17,15 +17,15 @@ export default function Navbar() {
   const isHome = location.pathname === "/";
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isHome ? "bg-foreground/20 backdrop-blur-md" : "bg-card/95 backdrop-blur-md shadow-card"}`}>
-      <div className="container mx-auto flex items-center justify-between py-4 px-4 lg:px-8">
+    <nav className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${isHome ? "bg-foreground/20 backdrop-blur-md" : "bg-card/95 backdrop-blur-md shadow-card"}`}>
+      <div className="mobile-shell mx-auto flex items-center justify-between py-3 md:py-4">
         <Link to="/" className="flex items-center gap-2">
-          <span className={`font-serif text-2xl font-bold tracking-tight ${isHome ? "text-primary-foreground" : "text-primary"}`}>
+          <span className={`font-serif text-xl font-bold tracking-tight sm:text-2xl ${isHome ? "text-primary-foreground" : "text-primary"}`}>
             Paradise<span className="text-gradient-gold">Beach</span>
           </span>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden items-center gap-6 lg:flex">
           {navLinks.map((l) => (
             <Link
               key={l.to}
@@ -41,7 +41,8 @@ export default function Navbar() {
           ))}
           <Link
             to="/contato"
-            className="bg-gradient-gold text-gold-foreground px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-gold hover:scale-105"
+            data-magnetic
+            className="button-pop rounded-full bg-gradient-gold px-6 py-2.5 text-sm font-semibold text-gold-foreground hover:shadow-gold"
           >
             Fale Conosco
           </Link>
@@ -49,7 +50,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className={`lg:hidden p-2 ${isHome ? "text-primary-foreground" : "text-foreground"}`}
+          className={`rounded-md p-2 lg:hidden ${isHome ? "text-primary-foreground" : "text-foreground"}`}
           aria-label="Menu"
         >
           {open ? <X size={24} /> : <Menu size={24} />}
@@ -62,17 +63,15 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-card/98 backdrop-blur-lg border-t border-border"
+            className="glass-card lg:hidden"
           >
-            <div className="container mx-auto py-6 px-4 flex flex-col gap-4">
+            <div className="mobile-shell flex flex-col gap-2 py-5">
               {navLinks.map((l) => (
                 <Link
                   key={l.to}
                   to={l.to}
                   onClick={() => setOpen(false)}
-                  className={`text-base font-medium py-2 transition-colors ${
-                    location.pathname === l.to ? "text-primary" : "text-foreground"
-                  }`}
+                  className={`rounded-md py-2 text-base font-medium transition-colors ${location.pathname === l.to ? "text-primary" : "text-foreground"}`}
                 >
                   {l.label}
                 </Link>
@@ -80,7 +79,7 @@ export default function Navbar() {
               <Link
                 to="/contato"
                 onClick={() => setOpen(false)}
-                className="bg-gradient-gold text-gold-foreground px-6 py-3 rounded-full text-center font-semibold mt-2"
+                className="mt-2 rounded-full bg-gradient-gold px-6 py-3 text-center font-semibold text-gold-foreground"
               >
                 Fale Conosco
               </Link>

@@ -11,28 +11,39 @@ import PropertyDetail from "./pages/PropertyDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import { useWebflowEffects } from "@/hooks/use-webflow-effects";
 
 const queryClient = new QueryClient();
+
+function AppShell() {
+  useWebflowEffects();
+
+  return (
+    <>
+      <Navbar />
+      <main className="min-h-screen">
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/venda" element={<PropertiesPage listing="venda" />} />
+          <Route path="/aluguel" element={<PropertiesPage listing="aluguel" />} />
+          <Route path="/imovel/:id" element={<PropertyDetail />} />
+          <Route path="/sobre" element={<About />} />
+          <Route path="/contato" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+      <WhatsAppButton />
+    </>
+  );
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Sonner />
       <BrowserRouter>
-        <Navbar />
-        <main className="min-h-screen">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/venda" element={<PropertiesPage listing="venda" />} />
-            <Route path="/aluguel" element={<PropertiesPage listing="aluguel" />} />
-            <Route path="/imovel/:id" element={<PropertyDetail />} />
-            <Route path="/sobre" element={<About />} />
-            <Route path="/contato" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-        <WhatsAppButton />
+        <AppShell />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

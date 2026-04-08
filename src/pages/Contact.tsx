@@ -14,8 +14,8 @@ export default function Contact() {
   };
 
   return (
-    <div className="pt-24 pb-16">
-      <div className="container mx-auto px-4">
+    <div className="pb-16 pt-24 sm:pt-28">
+      <div className="mobile-shell mx-auto">
         <SectionTitle label="Contato" title="Fale Conosco" subtitle="Estamos prontos para ajudá-lo a encontrar o imóvel dos seus sonhos." />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
@@ -67,7 +67,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-gold text-gold-foreground py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:shadow-gold transition-all"
+                className="button-pop w-full bg-gradient-gold text-gold-foreground py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:shadow-gold transition-all" data-magnetic
               >
                 <Send size={16} /> Enviar Mensagem
               </button>

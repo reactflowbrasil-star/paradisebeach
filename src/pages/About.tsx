@@ -12,19 +12,19 @@ const stats = [
 
 export default function About() {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pb-16 pt-24 sm:pt-28">
       {/* Hero */}
       <section className="relative py-24 overflow-hidden">
         <img src={sunsetImg} alt="Praia ao pôr do sol" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={800} />
         <div className="absolute inset-0 bg-foreground/60" />
-        <div className="relative z-10 container mx-auto px-4 text-center">
+        <div className="relative z-10 mobile-shell mx-auto text-center">
           <SectionTitle label="Nossa História" title="Sobre a Paradise Beach" subtitle="Mais de uma década conectando pessoas aos seus sonhos à beira-mar." light />
         </div>
       </section>
 
       {/* Story */}
       <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 max-w-3xl">
+        <div className="mobile-shell mx-auto max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-serif text-3xl font-bold text-foreground mb-6">Nossa Missão</h2>
             <p className="text-muted-foreground leading-relaxed mb-6">
@@ -46,7 +46,7 @@ export default function About() {
 
       {/* Stats */}
       <section className="py-20 bg-sand">
-        <div className="container mx-auto px-4">
+        <div className="mobile-shell mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((s, i) => (
               <motion.div

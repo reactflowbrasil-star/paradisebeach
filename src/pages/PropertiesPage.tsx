@@ -25,11 +25,10 @@ export default function PropertiesPage({ listing }: Props) {
       );
   }, [listing, search, typeFilter]);
 
-  const allOfListing = properties.filter((p) => p.listing === listing);
 
   return (
-    <div className="pt-24 pb-16">
-      <div className="container mx-auto px-4">
+    <div className="pb-16 pt-24 sm:pt-28">
+      <div className="mobile-shell mx-auto">
         <SectionTitle
           label={listing === "venda" ? "Compre" : "Alugue"}
           title={listing === "venda" ? "Imóveis à Venda" : "Imóveis para Aluguel"}

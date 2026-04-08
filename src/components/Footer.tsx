@@ -4,8 +4,8 @@ import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
 export default function Footer() {
   return (
     <footer className="bg-foreground text-primary-foreground">
-      <div className="container mx-auto px-4 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="mobile-shell mx-auto py-16">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
           <div>
             <h3 className="font-serif text-2xl font-bold mb-4">
               Paradise<span className="text-gradient-gold">Beach</span>
