@@ -11,6 +11,7 @@ import PropertyDetail from "./pages/PropertyDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import AdminPanel from "./pages/AdminPanel";
 import { useWebflowEffects } from "@/hooks/use-webflow-effects";
 import IntroSlides from "@/components/IntroSlides";
 
@@ -31,6 +32,7 @@ function AppShell() {
           <Route path="/imovel/:id" element={<PropertyDetail />} />
           <Route path="/sobre" element={<About />} />
           <Route path="/contato" element={<Contact />} />
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
